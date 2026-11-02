@@ -17,7 +17,7 @@ Claude Code や Claude API でエージェントを組んでいて、モデル�
 
 [プロンプトキャッシュ](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) ── リクエストの先頭部分を処理した結果をサーバー側でしばらく保持し、次のリクエストの先頭が同じならそれを再利用する仕組み。再利用できた分の料金は通常の入力の1割以下になる
 
-背景 ── 別の会社のモデル同士で KV キャッシュを変換して受け渡す研究 [Swarm Telepathy](https://arxiv.org/abs/2610.15095)（MIT ほか、査読前）を読み、Claude ではモデルをまたいだときにキャッシュがどう扱われるかを確かめた  
+背景 ── 別の会社のモデル同士で KV キャッシュを変換して受け渡す研究 [Swarm Telepathy](https://arxiv.org/abs/2610.15095)（MIT CSAIL と MIT-IBM、arXiv に査読の記載なし）を読み、Claude ではモデルをまたいだときにキャッシュがどう扱われるかを確かめた  
 Claude のプロンプトキャッシュが保持しているのも KV キャッシュ ── 上の Anthropic のドキュメントに、KV キャッシュを TTL の間メモリに保持すると書かれている
 
 ## 結果
