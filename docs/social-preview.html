@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@500;600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1280px; height: 640px;
+    background: #0d1117;
+    font-family: 'Geist', sans-serif;
+    color: #f0f3f6;
+    padding: 30px 38px 26px;
+    display: flex; flex-direction: column;
+  }
+
+  h1 { font-size: 36px; font-weight: 900; letter-spacing: -.034em; }
+  .lead { margin-top: 6px; font-size: 18px; font-weight: 600; }
+
+  .pair { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 30px; margin-top: 18px; }
+
+  /* panels, visually separated by background */
+  .panel { padding: 3px 0 3px 20px; border-left: 3px solid #2ecc71; }
+  .panel.measured { border-left-color: #ff5a4e; }
+
+  .head { display: flex; align-items: baseline; gap: 14px; }
+  .head .tag { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 800; letter-spacing: .08em;
+               padding: 4px 10px; border: 1.5px solid #8a93a0; }
+  .head .t { font-size: 21px; font-weight: 800; letter-spacing: -.02em; }
+  .head .src { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; }
+
+  .row { margin-top: 15px; display: flex; align-items: center; }
+  .row + .row { margin-top: 11px; }
+
+  .box { height: 50px; display: flex; align-items: center; justify-content: center;
+         font-weight: 800; border: 1.5px solid #8a93a0; background: transparent; }
+  .who { width: 116px; font-size: 18px; }
+  .cache { width: 196px; font-size: 17px; }
+  .cache.on { color: #2ecc71; border: 2px solid #2ecc71; }
+  .step { width: 156px; font-size: 17px; }
+  .step.on { color: #2ecc71; border: 2px solid #2ecc71; }
+  .step.off { color: #ff5a4e; border: 2px solid #ff5a4e; }
+
+  /* arrows */
+  .arr { display: flex; align-items: center; width: 42px; }
+  .arr .ln { flex: 1; height: 2px; background: #8a93a0; }
+  .arr .hd { width: 0; height: 0; border-left: 12px solid #8a93a0;
+             border-top: 7px solid transparent; border-bottom: 7px solid transparent; }
+
+  .cut { width: 42px; display: flex; align-items: center; justify-content: center;
+         position: relative; }
+  .cut .ln { position: absolute; left: 0; right: 0; height: 2px; background: #ff5a4e; }
+  .cut .x { position: relative; font-size: 30px; font-weight: 800; color: #ff5a4e;
+            line-height: 1; background: #0d1117; padding: 0 2px; }
+  .panel.measured .cut .x { background: #0d1117; }
+
+  .out { margin-left: 22px; font-size: 31px; font-weight: 800; letter-spacing: -.028em;
+         font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; }
+  .out.good { color: #2ecc71; }
+  .out.bad { color: #ff5a4e; }
+  .out .q { font-size: 16px; font-weight: 800; }
+
+  .vs { width: 42px; font-size: 15px; font-weight: 800; text-align: center; }
+  .panel:not(.measured) .row { padding-left: 42px; }
+
+  .note { margin-top: 13px; font-size: 16px; font-weight: 600; }
+
+  footer { margin-top: auto; padding-top: 16px;
+           display: flex; justify-content: space-between; align-items: flex-end; }
+  footer .cc { font-size: 22px; font-weight: 800; letter-spacing: -.024em; }
+  footer .src { text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; line-height: 1.55; }
+</style>
+</head>
+<body>
+
+  <h1>Can one AI hand its context to another?</h1>
+  <div class="lead">Not a summary — the KV cache itself, the state the model built while reading.</div>
+
+  <div class="pair">
+
+    <!-- PAPER -->
+    <div class="panel">
+      <div class="head">
+        <div class="tag">PAPER</div>
+        <div class="t">Yes, even across makers</div>
+        <div class="src">arXiv 2610.15095 · preprint · 3 model pairs</div>
+      </div>
+
+      <div class="row">
+        <div class="box who">Llama</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box cache on">its KV cache</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box step on">translated</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box who">Qwen</div>
+        <div class="out good">re-reads nothing <span class="q">(claimed)</span></div>
+      </div>
+
+      <div class="note">A small trained mapper reshapes the cache for the receiver. Against a written summary: +40% accuracy, 4x speed.</div>
+    </div>
+
+    <!-- MEASURED -->
+    <div class="panel measured">
+      <div class="head">
+        <div class="tag">I MEASURED</div>
+        <div class="t">Claude: no, not even between its own two models</div>
+        <div class="src">Claude Code 2.1.314 · 3 of 3 trials</div>
+      </div>
+
+      <div class="row">
+        <div class="vs"></div>
+        <div class="box who">Haiku</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box cache on">its KV cache</div>
+        <div class="cut"><div class="ln"></div><div class="x">&#10005;</div></div>
+        <div class="box step off">cannot read it</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box who">Sonnet</div>
+        <div class="out bad">re-reads 20,000+</div>
+      </div>
+
+      <div class="row">
+        <div class="vs">vs.</div>
+        <div class="box who">Haiku</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box cache on">its KV cache</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box step on">kept</div>
+        <div class="arr"><div class="ln"></div><div class="hd"></div></div>
+        <div class="box who">Haiku</div>
+        <div class="out good">re-reads 39–63</div>
+      </div>
+
+      <div class="note">One model switch mid-session, same context both ways. Tokens the receiving model had to rebuild.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="cc">The cache is split by model, not by session.</div>
+    <div class="src">
+      Haiku 5.5 → Sonnet 5.5<br>
+      github.com/shumatsumonobu/claude-model-switch-tax
+    </div>
+  </footer>
+
+</body>
+</html>

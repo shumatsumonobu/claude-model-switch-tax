@@ -6,6 +6,8 @@
 
 [Claude Code](https://code.claude.com/docs) 2.1.314、Claude Haiku 5.5 と Claude Sonnet 5.5 で測定
 
+![論文が主張する受け渡しと、Claude で測った結果を並べた図。論文は別メーカーのモデル間で KV キャッシュを変換して渡し、受け手は読み直さない。Claude は同じ社内の Haiku から Sonnet に替えると読めず、2万トークン以上を読み直す](docs/overview.png)
+
 > Claude's prompt cache is split by model, not by session. In all 3 trials, Sonnet did not reuse the cache Haiku had written after a mid-session switch. It rewrote 20,136 tokens of the conversation, against 39–63 when the model stays the same. At API prices with 1-hour cache writes, that turn cost 23–36x the next one.
 
 ## 目的
@@ -149,6 +151,9 @@ claude-model-switch-tax/
 ├─ README.md
 ├─ LICENSE                   MIT
 ├─ .gitattributes            改行コードを LF に固定（トークン数が変わるため）
+├─ docs/                     図の HTML と、書き出した PNG
+│  ├─ overview.html / .png   上の図
+│  └─ social-preview.html / .png   GitHub の Social preview 用
 ├─ CLAUDE.md                 このリポジトリを変更するときの決まり（使うだけなら不要）
 ├─ scripts/
 │  ├─ switch-in-session.sh   同じセッションの途中でモデルを替える

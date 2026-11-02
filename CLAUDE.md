@@ -44,6 +44,19 @@ Claude のプロンプトキャッシュがセッションやモデルをまた�
 - `system-prompt.txt` の改行コードが CRLF になるとトークン数が変わる ── `.gitattributes` で LF に固定してある
 - スクリプトの実行権限に頼らない ── README も `bash scripts/...` の形で統一してある
 
+## 図
+
+`docs/` に HTML と、そこから書き出した PNG を置く。Chrome のヘッドレスで `--force-device-scale-factor=2` で書き出す
+
+| ファイル | 用途 | 書き出しサイズ |
+|---|---|---|
+| `docs/overview.html` / `.png` | README に埋め込む。図だけで、タイトルと結論は README 本文が持つので入れない | 1600 × 620 |
+| `docs/social-preview.html` / `.png` | GitHub の Social preview。単体で流れるのでタイトルと結論を入れる | 1280 × 640 |
+
+Social preview は API から設定できないので、リポジトリの Settings から手動でアップロードする
+
+SNS に添付する版は、beacon の `posts/assets/kv-cache-model-switch/` にある。3つは別ファイルなので、数字を変えたら3つとも直す。README 本文の数字との一致も確かめる
+
 ## 現在の状態
 
 README に載せた測定値は、Claude Code 2.1.314、Claude Haiku 5.5 と Claude Sonnet 5.5 のもの  
